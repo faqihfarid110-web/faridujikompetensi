@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.02"/>
+    </linearGradient>
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.6" fill="#6b5b4b" opacity="0.06" />
+    </pattern>
+  </defs>
+  <!-- gentle parchment gradient -->
+  <rect width="100%" height="100%" fill="url(#g1)" />
+  <!-- subtle dot pattern for paper texture -->
+  <rect width="100%" height="100%" fill="url(#dots)" />
+  <!-- corner ornament (top-left) -->
+  <g fill="#7c6f57" opacity="0.06">
+    <path d="M40 30 C25 20, 20 10, 40 5 C60 10, 55 20, 40 30 Z"/>
+  </g>
+  <!-- light vignette -->
+  <radialGradient id="vign" cx="50%" cy="40%" r="60%">
+    <stop offset="55%" stop-color="#000" stop-opacity="0" />
+    <stop offset="100%" stop-color="#000" stop-opacity="0.06" />
+  </radialGradient>
+  <rect width="100%" height="100%" fill="url(#vign)" />
+</svg>

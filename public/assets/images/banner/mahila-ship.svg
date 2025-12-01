@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1">
+      <stop offset="0%" stop-color="#f5e9da"/>
+      <stop offset="100%" stop-color="#b7b7a4"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence baseFrequency="0.9" numOctaves="1" stitchTiles="stitch" result="noise" />
+      <feColorMatrix type="saturate" values="0" />
+      <feBlend in="SourceGraphic" in2="noise" mode="multiply" opacity="0.06"/>
+    </filter>
+  </defs>
+  <rect width="100%" height="100%" fill="url(#g)" />
+  <g transform="translate(50,60) scale(0.9)" opacity="0.08" fill="#4b3621">
+    <!-- stylized ship silhouette -->
+    <path d="M220 260 C260 230, 340 230, 380 260 C420 290, 560 300, 680 260 L680 280 L220 280 Z"/>
+    <path d="M260 190 L270 230 L300 240 L330 200 Z"/>
+    <rect x="300" y="100" width="6" height="120" rx="3" />
+  </g>
+  <g transform="translate(60,30) scale(0.85)" opacity="0.22">
+    <path d="M120 40 L180 80 L220 50" stroke="#7c6f57" stroke-width="1" fill="none"/>
+  </g>
+  <g transform="translate(30,100)" opacity="0.06" fill="#000">
+    <circle cx="100" cy="40" r="1" />
+    <circle cx="420" cy="80" r="1" />
+    <circle cx="320" cy="120" r="1" />
+  </g>
+  <rect width="100%" height="100%" fill="rgba(0,0,0,0.02)"/>
+</svg>

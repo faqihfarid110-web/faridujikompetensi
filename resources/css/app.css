@@ -1,0 +1,290 @@
+/* Floating shape animations removed for lighter UI */
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* --- Template Tailwind CSS utilities --- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* subtle ken-burns effect on hero image */
+@keyframes kenburns {
+    0% { transform: scale(1) translateY(0px); }
+    50% { transform: scale(1.03) translateY(-6px); }
+    100% { transform: scale(1) translateY(0px); }
+}
+.hero-kenburns { animation: kenburns 18s ease-in-out infinite; }
+
+/* premium smooth motion for hero image */
+.hero-kenburns-premium {
+    animation: heroFloat 22s cubic-bezier(.4,.2,.2,1) infinite alternate;
+    box-shadow: 0 16px 48px 0 rgba(118,111,87,0.18), 0 2px 8px 0 rgba(190,170,140,0.08);
+}
+@keyframes heroFloat {
+    0% { transform: scale(1.01) translateY(0px) rotate(-0.5deg); }
+    20% { transform: scale(1.04) translateY(-8px) rotate(0.5deg); }
+    40% { transform: scale(1.03) translateY(-4px) rotate(-0.5deg); }
+    60% { transform: scale(1.05) translateY(-12px) rotate(1deg); }
+    80% { transform: scale(1.03) translateY(-6px) rotate(-0.5deg); }
+    100% { transform: scale(1.01) translateY(0px) rotate(0deg); }
+}
+
+/* search button premium style */
+.home-search-btn svg {
+    stroke: #fff;
+    stroke-width: 2.2;
+    transition: stroke 0.2s;
+}
+.home-search-btn:focus svg, .home-search-btn:hover svg {
+    stroke: #e9d8a6;
+}
+
+/* tags style */
+.tag-chip { background: #7c6f57; color: #fff; padding: 4px 8px; border-radius: 999px; font-size: 0.85rem; display: inline-flex; gap: .5rem; align-items:center; }
+.tag-chip button { background: transparent; border: none; color: rgba(255,255,255,0.9); cursor: pointer; margin-left: .375rem; }
+#topic-input-wrapper .tag-input { transition: transform 120ms ease, box-shadow 120ms ease; }
+#topic-input-wrapper .tag-input:focus-within { transform: scale(1.02); box-shadow: 0 8px 20px rgba(118,111,87,0.12); }
+
+/* suggestion dropdown */
+#topic-suggestions li { padding: .5rem .75rem; cursor: pointer; }
+#topic-suggestions li:hover { background: #f5e9da; }
+
+/* ripple */
+.ripple { position: relative; overflow: hidden; }
+.ripple span.ripple-ink { position: absolute; border-radius: 999px; transform: scale(0); background: rgba(255,255,255,0.4); animation: ripple 0.6s linear; }
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+/* reduce motion for prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .hero-kenburns { animation: none; }
+}
+
+section {
+    @apply py-20;
+}
+
+.slick-dots {
+    color: #1A21BC;
+}
+
+.slick-dots li.slick-active button:before {
+    opacity: 1;
+    color: #1A21BC !important;
+}
+
+.slick-dots li button:before {
+    font-size: 11px !important;
+}
+
+/* Login Form larger style and background */
+.login-page-hero { background-image: linear-gradient(180deg, rgba(245,233,218,0.9) 0%, rgba(227,217,200,0.85) 100%), url('../assets/images/banner/history-overlay.svg'); background-size: cover; background-position: center; }
+.login-card-lg { background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(249,246,243,0.98)); }
+.modern-classic-inputs /* modern/classic input icons */
+.input-with-icon .icon-input { transition: color 180ms ease, transform 180ms ease; color: #a68b5b; }
+.input-with-icon.icon-focused .icon-input { color: #7c6f57; transform: translateY(-2px); }
+.input-with-icon input { padding-left: 3rem; }
+
+/* historic ornaments */
+.login-card-lg::before { content: ''; position: absolute; left: 0; right: 0; top: -8px; height: 6px; background: linear-gradient(90deg, rgba(166,139,91,0.4), rgba(124,111,87,0.22)); border-top-left-radius: 6px; border-top-right-radius: 6px; }
+.login-card-lg { position: relative; overflow: visible; }
+
+/* modern floating button text shadow */
+.login-card-lg button[type='submit'] { box-shadow: 0 6px 20px rgba(118,111,87,0.14), inset 0 -2px 0 rgba(0,0,0,0.03); }
+
+/* Ornamental corners for a classic look */
+.login-card-lg::after, .login-card-lg::before { content: ''; position: absolute; width: 64px; height: 64px; opacity: 0.12; }
+.login-card-lg::before { left: -24px; top: -24px; background: radial-gradient(circle at 30% 30%, rgba(166,139,91,0.8), rgba(166,139,91,0.2) 20%, transparent 40%); transform: rotate(45deg); }
+.login-card-lg::after { right: -24px; bottom: -24px; background: radial-gradient(circle at 70% 70%, rgba(166,139,91,0.8), rgba(166,139,91,0.2) 20%, transparent 40%); transform: rotate(-45deg); }
+
+/* Slight glass effect to add modern touch */
+.login-card-lg { backdrop-filter: saturate(1.05) blur(2px); background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(247,239,226,0.96)); }
+.login-card-bg {
+    /* Use --login-bg variable for the card background; fallback retains the card gradient */
+    background-image: linear-gradient(180deg, rgba(245,238,230,0.86), rgba(255,255,255,0.92)), var(--login-bg);
+    background-size: cover; background-position: center center; background-repeat: no-repeat;
+    /* Blend with gradient to keep color muted and text readable */
+    background-blend-mode: multiply, normal;
+}
+.login-card-bg { color: #2b2b2b; }
+.login-card-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.04)); pointer-events: none; border-radius: inherit; }
+.login-card-bg input, .login-card-bg button { backdrop-filter: none; }
+
+/* Increase heading styling for clarity */
+.history-heading { font-family: 'Cinzel', 'Georgia', serif; font-weight: 700; letter-spacing: .3px; }
+/* Slightly increase card density on mobile */
+@media (max-width: 640px) {
+    .login-card-lg { padding: 1.25rem !important; }
+}
+
+/* Improve inputs spacing for visual balance */
+.login-card-lg input { padding: 0.7rem 0.95rem; }
+.login-card-lg .icon-input { left: 0.95rem; }
+
+/* Make primary button slightly bigger on mobile */
+@media (max-width: 640px) {
+    .login-card-lg button[type='submit'] { padding: 0.75rem 1rem; font-size: 1rem; }
+}
+
+/* Label focus color and classic typography accent */
+.login-card-lg label { font-family: 'Cinzel', 'EB Garamond', Georgia, serif; font-weight: 600; }
+.input-with-icon.icon-focused label, .login-card-lg input:focus + label { color: #a68b5b; }
+.login-card-lg label { letter-spacing: .1px; }
+.login-card-lg input { font-size: 1rem; }
+
+/* eye toggle style */
+/* password toggle removed — keep these styles in case other toggles exist */
+#toggle-password { display:none; }
+#toggle-password svg { width: 0; height: 0; display:none; }
+
+/* decorative ship image for login background */
+.login-decor-image { transform: scale(1.02); filter: hue-rotate(-10deg) saturate(0.8); }
+.login-decor-image-comic { transform: scale(1.06); filter: grayscale(100%) contrast(2.3) brightness(0.95) saturate(0); opacity: .15; mix-blend-mode: multiply; object-fit: cover; }
+.login-decor-image-comic:hover { opacity: .22; transform: scale(1.08); }
+@media (max-width: 640px) {
+    .login-decor-image { display: none; }
+}
+
+/* login card subtle lift */
+.login-card { transform: translateY(0); transition: transform 300ms cubic-bezier(.2,.9,.2,1), box-shadow 300ms; }
+.login-card:hover { transform: translateY(-6px); box-shadow: 0 18px 60px rgba(118,111,87,0.12); }
+
+/* Creative login card hover effect */
+.login-card-lg {
+    transition: box-shadow 0.25s cubic-bezier(.2,.9,.2,1);
+}
+.login-card-lg:hover {
+    box-shadow: 0 14px 36px rgba(124,111,87,0.12);
+}
+
+/* Articles / countries UI enhancements */
+.articles-index a { transition: transform 200ms ease, box-shadow 200ms ease, border 200ms ease; }
+.articles-index a:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 12px 42px rgba(0,0,0,0.06); }
+.articles-index .w-16 { transition: transform 220ms ease; }
+.articles-index a:hover .w-16 { transform: rotate(-6deg) scale(1.04); }
+.countries-grid .country-card { transition: transform 200ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms; }
+.countries-grid .country-card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(0,0,0,0.06); border-color: rgba(166,139,91,0.12); }
+.country-card img { transition: transform 220ms ease, box-shadow 220ms ease; }
+.country-card:hover img { transform: scale(1.12) translateX(2px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+.country-card .ripple { overflow: visible; }
+.country-card .ripple .ripple-ink { background: rgba(124,111,87,0.08); }
+
+/* continent options dropdown */
+.continent-card .continent-options { min-height: 2.5rem; }
+.continent-options a { display: block; }
+.continent-options a:hover { background: #f3ecd9; }
+.continent-card { position: relative; }
+.continent-options { box-sizing: border-box; }
+.continent-options { display: block; }
+.continent-options.hidden { display: none; }
+.continent-options a { color: #2b2b2b; }
+.continent-options a:hover { background-color: #f3ecd9; }
+
+/* Accent pulse effect when clicking a continent */
+.continent-card { --accent-rgb: 124,111,87; }
+.continent-card .accent-overlay { position: absolute; inset: 0; border-radius: 12px; pointer-events: none; opacity: 0; transform: scale(1); transition: opacity 220ms ease, transform 420ms cubic-bezier(.2,.8,.2,1); box-shadow: 0 8px 28px rgba(0,0,0,0.06); z-index: 60; }
+.continent-card.accent-active .accent-overlay { opacity: 1; transform: scale(1.02); box-shadow: 0 24px 60px rgba(var(--accent-rgb), 0.26); background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.06), rgba(var(--accent-rgb), 0.06)); }
+.continent-card .accent-overlay::after { content: ''; position: absolute; inset: -6px; border-radius: inherit; box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.0); transition: box-shadow 240ms ease; }
+.continent-card.accent-active .accent-overlay::after { box-shadow: 0 0 40px 8px rgba(var(--accent-rgb), 0.18); }
+@keyframes accentPulse {
+    0% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.18); transform: scale(1.0); }
+    30% { box-shadow: 0 0 40px 10px rgba(var(--accent-rgb), 0.28); transform: scale(1.03); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.0); transform: scale(1.0); }
+}
+.continent-card.accent-active .accent-overlay { animation: accentPulse 720ms ease-out; }
+
+/* Small flourish for the continent icon when pressed */
+.continent-card.accent-active .w-16 { transform: rotate(-8deg) scale(1.06); }
+.continent-card > *:not(.accent-overlay) { position: relative; z-index: 6; }
+.continent-card.accent-pressed { transform: translateY(1px) scale(0.996); }
+.continent-card.accent-active .continent-options a { background: rgba(var(--accent-rgb), 0.04); }
+.continent-card.accent-active { box-shadow: 0 18px 48px rgba(var(--accent-rgb), 0.08), 0 2px 8px rgba(0,0,0,0.06); border-color: rgba(var(--accent-rgb), 0.20); transform: translateY(-3px) scale(1.01); }
+
+
+/* Classic card variant - subtle texture and ornamental border */
+.login-card-classic {
+    position: relative; /* ensure pseudo-elements align */
+}
+.login-card-classic::before {
+    /* subtle paper texture using a small repeating PNG (low opacity) */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/images/newsletter/bgg.png');
+    background-repeat: repeat;
+    background-position: center;
+    background-size: 140px 140px;
+    opacity: 0.06; /* very subtle */
+    pointer-events: none;
+    border-radius: inherit;
+}
+.login-card-classic::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    border: 1px solid rgba(166,139,91,0.12);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(0,0,0,0.02);
+}
+
+/* small ornamental corner by adding a pseudo element we draw with SVG data URI */
+.login-card-classic .corner-ornament {
+    position: absolute; width: 44px; height: 44px; opacity: 0.55; pointer-events: none; fill: none; stroke: rgba(166,139,91,0.7);
+}
+.login-card-classic .corner-ornament.top-left { left: -18px; top: -18px; transform: rotate(0deg); }
+.login-card-classic .corner-ornament.bottom-right { right: -18px; bottom: -18px; transform: rotate(180deg); }
+
+/* ---- Navigation history link (colorful press effect, remove underline) ---- */
+.history-link { background: transparent; text-decoration: none !important; transition: background 210ms ease, color 160ms ease, box-shadow 200ms; }
+.history-link:hover { background: linear-gradient(90deg, rgba(255,213,0,0.14), rgba(59,130,246,0.08)); color: #fff !important; }
+.history-link:active { background: linear-gradient(90deg, rgba(255,213,0,0.22), rgba(239,68,68,0.14)); color: #fff !important; }
+.history-link:focus { outline: none; box-shadow: 0 4px 18px rgba(124,111,87,0.08), 0 2px 8px rgba(59,130,246,0.08); }
+
+@keyframes navPress {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+.history-link.pressed { background: linear-gradient(90deg, rgba(255,213,0,0.22), rgba(59,130,246,0.18), rgba(239,68,68,0.12)); background-size: 200% 100%; animation: navPress 700ms ease; color: #fff !important; }
+
+/* ---- Autoscroll history rows ---- */
+.autoscroll-container { -ms-overflow-style: none; scrollbar-width: none; }
+.autoscroll-container::-webkit-scrollbar { display: none; }
+.autoscroll-container { scroll-behavior: smooth; }
+
+.history-item { display: flex; flex-direction: column; justify-content: flex-start; min-width: 16rem; max-width: 16rem; height: 320px; }
+.history-item img { width: 100%; height: 120px; object-fit: cover; border-radius: .375rem; }
+.history-item h4 { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-weight: 700; font-size: 1.05rem; line-height: 1.2; color: #2b2b2b; margin-top: .55rem; }
+.history-item p { font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; font-size: 0.95rem; line-height: 1.45; color: rgba(43,43,43,0.75); margin-top: .4rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+
+/* spacing for items */
+.autoscroll-container .history-item + .history-item { margin-left: 0.6rem; }
+
+/* ensure small devices have better spacing */
+@media (max-width: 640px) {
+    .history-item { min-width: 14rem; max-width: 14rem; }
+}
+
+/* helper: hide underline style utility override */
+.no-underline { text-decoration: none !important; }
+
+/* helper utility to hide scrollbar */
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+.history-date { font-family: 'EB Garamond', Georgia, serif; color: rgba(43,43,43,0.7); font-weight: 600; }
+

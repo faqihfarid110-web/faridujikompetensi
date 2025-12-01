@@ -1,0 +1,1 @@
+Original welcome.blade.php backed up here. The original file contained the default Laravel welcome page with inline Tailwind CSS and SVG artwork.
