@@ -1,59 +1,393 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Faridji Kompetensi - Sejarah Indonesia Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Platform interaktif untuk pembelajaran sejarah Indonesia dengan fitur fun facts, koleksi gambar, survey, dan student gallery.
 
-## About Laravel
+## Daftar Isi
+- [Fitur Utama](#fitur-utama)
+- [Entity Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
+- [UML Class Diagram](#uml-class-diagram)
+- [Instalasi](#instalasi)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Funfact Sejarah**: Koleksi fakta menarik sejarah dengan kategori (politik, kultur, militer, ekonomi, kuno, olahraga, sains, urban)
+- **Rating & Komentar**: Sistem feedback untuk setiap funfact
+- **Survey**: Pengumpulan data minat topik dari pengguna
+- **Student Gallery**: Galeri siswa dengan foto dan informasi
+- **Responsive Design**: Dioptimalkan untuk semua perangkat
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Entity Relationship Diagram (ERD)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+```
+┌─────────────────────────────┐
+│         USERS               │
+├─────────────────────────────┤
+│ id (PK)                     │
+│ name                        │
+│ email (UNIQUE)              │
+│ email_verified_at           │
+│ password                    │
+│ remember_token              │
+│ created_at                  │
+│ updated_at                  │
+└─────────────────────────────┘
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+┌─────────────────────────────┐
+│       STUDENTS              │
+├─────────────────────────────┤
+│ id (PK)                     │
+│ name                        │
+│ class_year                  │
+│ major_interest              │
+│ bio                         │
+│ photo                       │
+│ created_at                  │
+│ updated_at                  │
+└─────────────────────────────┘
 
-## Laravel Sponsors
+┌─────────────────────────────┐
+│      FUNFACTS               │
+├─────────────────────────────┤
+│ id (PK)                     │
+│ slug (UNIQUE)               │
+│ title                       │
+│ category                    │
+│ summary                     │
+│ img                         │
+│ source                      │
+│ author                      │
+│ date                        │
+│ content                     │
+│ created_at                  │
+│ updated_at                  │
+└─────────────────────────────┘
+       │
+       │ 1:N
+       │
+       ▼
+┌─────────────────────────────┐
+│   FUNFACT_FEEDBACK          │
+├─────────────────────────────┤
+│ id (PK)                     │
+│ slug (FK)                   │
+│ name                        │
+│ comment                     │
+│ rating (0-5)                │
+│ created_at                  │
+│ updated_at                  │
+└─────────────────────────────┘
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+┌─────────────────────────────┐
+│       SURVEYS               │
+├─────────────────────────────┤
+│ id (PK)                     │
+│ name                        │
+│ email                       │
+│ topic_interest              │
+│ reason                      │
+│ expected_impact             │
+│ comments                    │
+│ created_at                  │
+│ updated_at                  │
+└─────────────────────────────┘
+```
 
-### Premium Partners
+### Relasi Database
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+| Tabel Sumber | Tabel Tujuan | Tipe Relasi | Keterangan |
+|---|---|---|---|
+| FUNFACTS | FUNFACT_FEEDBACK | 1:N | Satu funfact bisa memiliki banyak feedback |
+| FUNFACT_FEEDBACK | FUNFACTS | N:1 | Banyak feedback merujuk ke satu funfact |
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## UML Class Diagram
 
-## Code of Conduct
+```
+┌─────────────────────────────────────────┐
+│              <<abstract>>               │
+│          Authenticatable                │
+├─────────────────────────────────────────┤
+│ #password: string                       │
+│ #remember_token: string                 │
+├─────────────────────────────────────────┤
+│ +getAuthPassword()                      │
+│ +getRememberToken()                     │
+└─────────────────────────────────────────┘
+           △
+           │ extends
+           │
+┌─────────────────────────────────────────┐
+│              User                       │
+├─────────────────────────────────────────┤
+│ -id: int <<PK>>                         │
+│ -name: string                           │
+│ -email: string <<UNIQUE>>               │
+│ -email_verified_at: datetime            │
+│ -password: string                       │
+│ -remember_token: string                 │
+│ -created_at: datetime                   │
+│ -updated_at: datetime                   │
+├─────────────────────────────────────────┤
+│ +create()                               │
+│ +update()                               │
+│ +delete()                               │
+└─────────────────────────────────────────┘
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+┌─────────────────────────────────────────┐
+│              Student                    │
+├─────────────────────────────────────────┤
+│ -id: int <<PK>>                         │
+│ -name: string                           │
+│ -class_year: string                     │
+│ -major_interest: string                 │
+│ -bio: text                              │
+│ -photo: string                          │
+│ -created_at: datetime                   │
+│ -updated_at: datetime                   │
+├─────────────────────────────────────────┤
+│ +create()                               │
+│ +read()                                 │
+│ +update()                               │
+│ +delete()                               │
+└─────────────────────────────────────────┘
 
-## Security Vulnerabilities
+┌─────────────────────────────────────────┐
+│              Funfact                    │
+├─────────────────────────────────────────┤
+│ -id: int <<PK>>                         │
+│ -slug: string <<UNIQUE>>                │
+│ -title: string                          │
+│ -category: string                       │
+│ -summary: string                        │
+│ -img: string                            │
+│ -source: string                         │
+│ -author: string                         │
+│ -date: string                           │
+│ -content: text                          │
+│ -created_at: datetime                   │
+│ -updated_at: datetime                   │
+├─────────────────────────────────────────┤
+│ +create()                               │
+│ +readBySlug()                           │
+│ +readByCategory()                       │
+│ +update()                               │
+│ +delete()                               │
+│ +getFeedbacks(): FunfactFeedback[]      │
+└─────────────────────────────────────────┘
+           │
+           │ 1:N
+           │
+           ▼
+┌─────────────────────────────────────────┐
+│        FunfactFeedback                  │
+├─────────────────────────────────────────┤
+│ -id: int <<PK>>                         │
+│ -slug: string <<FK>>                    │
+│ -name: string                           │
+│ -comment: text                          │
+│ -rating: int (0-5)                      │
+│ -created_at: datetime                   │
+│ -updated_at: datetime                   │
+├─────────────────────────────────────────┤
+│ +create()                               │
+│ +read()                                 │
+│ +update()                               │
+│ +delete()                               │
+│ +getFunfact(): Funfact                  │
+└─────────────────────────────────────────┘
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+┌─────────────────────────────────────────┐
+│              Survey                     │
+├─────────────────────────────────────────┤
+│ -id: int <<PK>>                         │
+│ -name: string                           │
+│ -email: string                          │
+│ -topic_interest: string                 │
+│ -reason: text                           │
+│ -expected_impact: text                  │
+│ -comments: text                         │
+│ -created_at: datetime                   │
+│ -updated_at: datetime                   │
+├─────────────────────────────────────────┤
+│ +create()                               │
+│ +read()                                 │
+│ +update()                               │
+│ +delete()                               │
+└─────────────────────────────────────────┘
+```
 
-## License
+### Deskripsi Class
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### User
+- **Deskripsi**: Model pengguna sistem yang mengimplementasikan Authenticatable
+- **Attribut Utama**: name, email, password
+- **Operasi**: Create, Read, Update, Delete
+
+#### Student
+- **Deskripsi**: Model data siswa dengan profil dan portfolio
+- **Attribut Utama**: name, class_year, major_interest, bio, photo
+- **Operasi**: CRUD lengkap
+
+#### Funfact
+- **Deskripsi**: Model konten fakta sejarah yang dapat dikategorikan
+- **Attribut Utama**: slug, title, category, content, img, source
+- **Operasi**: CRUD, query berdasarkan kategori dan slug
+- **Relasi**: One-to-Many dengan FunfactFeedback
+
+#### FunfactFeedback
+- **Deskripsi**: Model feedback/komentar untuk setiap funfact
+- **Attribut Utama**: slug, name, comment, rating
+- **Operasi**: CRUD
+- **Relasi**: Many-to-One dengan Funfact
+
+#### Survey
+- **Deskripsi**: Model data survey minat topik dari pengguna
+- **Attribut Utama**: name, email, topic_interest, reason, expected_impact, comments
+- **Operasi**: CRUD
+
+---
+
+## Struktur Direktori
+
+```
+farrr/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       ├── AdminSurveyController.php
+│   │       ├── FunfactController.php
+│   │       └── StudentController.php
+│   ├── Models/
+│   │   ├── User.php
+│   │   ├── Student.php
+│   │   ├── Funfact.php
+│   │   ├── FunfactFeedback.php
+│   │   └── Survey.php
+│   └── Providers/
+│       └── AppServiceProvider.php
+├── database/
+│   ├── migrations/
+│   │   ├── 0001_01_01_000000_create_users_table.php
+│   │   ├── 2025_11_29_000001_create_students_table.php
+│   │   ├── 2025_11_29_000001_create_funfact_feedback_table.php
+│   │   ├── 2025_11_29_000002_create_funfacts_table.php
+│   │   └── 2025_11_29_000002_create_surveys_table.php
+│   ├── factories/
+│   │   └── UserFactory.php
+│   └── seeders/
+│       └── DatabaseSeeder.php
+├── resources/
+│   ├── css/
+│   │   └── app.css
+│   ├── js/
+│   │   ├── app.js
+│   │   └── bootstrap.js
+│   └── views/
+│       ├── layouts/
+│       │   └── app.blade.php
+│       ├── funfact.blade.php
+│       ├── funfact/
+│       ├── dashboard.blade.php
+│       ├── survey/
+│       └── ...
+├── routes/
+│   ├── web.php
+│   └── console.php
+├── public/
+│   ├── index.php
+│   ├── assets/
+│   │   └── images/
+│   └── build/
+├── config/
+│   ├── app.php
+│   ├── auth.php
+│   ├── database.php
+│   └── ...
+├── .env
+├── .env.example
+├── composer.json
+├── package.json
+├── tailwind.config.js
+├── vite.config.js
+└── phpunit.xml
+```
+
+---
+
+## API Endpoints
+
+### Funfact
+- `GET /funfact` - Daftar semua funfacts
+- `GET /funfact/{slug}` - Detail funfact
+- `GET /funfact/category/{category}` - Funfacts berdasarkan kategori
+- `POST /funfact/{slug}/feedback` - Tambah feedback/rating
+
+### Student
+- `GET /students` - Daftar semua siswa
+- `GET /students/{id}` - Detail siswa
+
+### Survey
+- `POST /survey` - Submit survey
+
+---
+
+## Instalasi
+
+### Prasyarat
+- PHP 8.1+
+- Composer
+- MySQL 5.7+
+- Node.js & npm
+
+### Langkah Instalasi
+
+1. **Clone Repository**
+   ```bash
+   git clone https://github.com/faqihfarid110-web/faridujikompetensi.git
+   cd faridujikompetensi
+   ```
+
+2. **Install Dependencies**
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Setup Environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Database Configuration**
+   - Update `.env` dengan kredensial database MySQL Anda
+   - Jalankan migrasi:
+     ```bash
+     php artisan migrate
+     php artisan db:seed
+     ```
+
+5. **Build Assets**
+   ```bash
+   npm run build
+   ```
+
+6. **Start Server**
+   ```bash
+   php artisan serve
+   ```
+
+   Aplikasi akan berjalan di `http://localhost:8000`
+
+---
+
+## Kontribusi
+
+Silakan buat pull request untuk kontribusi. Pastikan kode mengikuti standar Laravel dan telah diuji.
+
+## Lisensi
+
+Project ini menggunakan lisensi MIT.
