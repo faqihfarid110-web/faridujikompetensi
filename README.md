@@ -4,6 +4,7 @@ Platform interaktif untuk pembelajaran sejarah Indonesia dengan fitur fun facts,
 
 ## Daftar Isi
 - [Fitur Utama](#fitur-utama)
+- [Diagrams](#diagrams)
 - [Entity Relationship Diagram (ERD)](#entity-relationship-diagram-erd)
 - [UML Class Diagram](#uml-class-diagram)
 - [Instalasi](#instalasi)
@@ -18,7 +19,32 @@ Platform interaktif untuk pembelajaran sejarah Indonesia dengan fitur fun facts,
 
 ---
 
-## Entity Relationship Diagram (ERD)
+## Diagrams
+
+### ERD (Entity Relationship Diagram)
+
+![ERD Diagram](docs/erd.png)
+
+Diagram relasi database menunjukkan struktur dan relasi antar tabel:
+- **Users**: Tabel pengguna sistem
+- **Students**: Tabel data siswa dengan profil dan foto
+- **Funfacts**: Tabel konten fakta sejarah dengan kategori dan konten
+- **FunfactFeedback**: Tabel feedback dan rating untuk setiap funfact (relasi 1:N dengan Funfacts)
+- **Surveys**: Tabel data survey minat topik dari pengguna
+
+### UML Class Diagram
+
+![UML Class Diagram](docs/uml.png)
+
+Diagram use case dan class structure menunjukkan:
+- **Admin**: Dapat membuat, update, dan delete Funfact serta Student; dapat menghapus Survey
+- **User**: Dapat melihat Funfact, submit feedback, mengisi Survey, dan melihat Student
+- **Use Cases**: Relasi include dan extend antar fitur sistem
+- **Classes**: Authenticatable (abstract), User, Student, Funfact, FunfactFeedback, Survey dengan relasi 1:N
+
+---
+
+## Entity Relationship Diagram (ERD) - Text Version
 
 ```
 ┌─────────────────────────────┐
